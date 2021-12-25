@@ -33,6 +33,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -42,11 +43,14 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-
+  env: {
+    token:
+      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYWU1MjM5NjQ0MWNhNzZhOTJhMzQ0MWRhMWQxZjIyMCIsInN1YiI6IjYxYzQyYTYyZWNhZWY1MDA4ZWFmZTFhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MZsBC8SxrKXRJIbn9Rt4acJcqjaSLx3jn-fScgU2y4g',
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'https://api.themoviedb.org/3/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

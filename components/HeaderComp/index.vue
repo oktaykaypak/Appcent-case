@@ -1,5 +1,5 @@
 <template>
-  <header class="shadow mb-5 bg-dark text-white">
+  <header class="shadow bg-dark text-white">
     <div class="container">
       <div class="row py-5">
         <div class="col-sm-6">
@@ -8,7 +8,8 @@
         </div>
         <div class="col-sm-6 text-right">
           <!-- menu -->
-          menu
+         <nuxt-link to="/">Home</nuxt-link>
+         <nuxt-link to="/about">About</nuxt-link>
         </div>
       </div>
     </div>
