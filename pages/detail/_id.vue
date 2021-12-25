@@ -1,5 +1,9 @@
 <template>
-  <div>detıl</div>
+  <div>
+    <section class="container">
+      
+    </section>
+  </div>
 </template>
 
 <script>
