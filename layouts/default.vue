@@ -9,6 +9,9 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  beforeMount() {
+    this.$axios.setToken(process.env.token, 'Bearer')
+  },
 }
 </script>
 

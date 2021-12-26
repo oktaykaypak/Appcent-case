@@ -7,14 +7,10 @@
         fade
       >
         <b-carousel-slide
-          img-src="https://www.themoviedb.org/t/p/original/dK12GIdhGP6NPGFssK2Fh265jyr.jpg"
-        ></b-carousel-slide>
-        <b-carousel-slide
-          img-src="https://www.themoviedb.org/t/p/original/oFzuAmn9cy352cLLYqoeH6YB9Xn.jpg"
-        ></b-carousel-slide>
-        <b-carousel-slide
-          img-src="https://www.themoviedb.org/t/p/original/2xfXMRcNIeBE935PrzHNuIjHrso.jpg"
-        ></b-carousel-slide>
+          v-for="item in bgPosters"
+          :key="item.file_path"
+          :img-src="'https://www.themoviedb.org/t/p/original' + item.file_path"
+        />
       </b-carousel>
       <div class="bg-shadow"></div>
 
@@ -25,10 +21,7 @@
               <div class="col-sm-4">
                 <!-- Afis -->
                 <img
-                  :src="
-                    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2' +
-                    data.poster_path
-                  "
+                  :src="imgPath + data.poster_path"
                   alt=""
                   class="shadow-lg w-100"
                 />
@@ -37,25 +30,64 @@
                 <!-- data -->
                 <div class="row">
                   <div class="col-12 h1">
-                    <b>{{ data.original_title }}</b>
-                    <small> {year} </small>
+                    <b>{{ data.title }}</b>
+                    <small v-if="data.release_date">
+                      ({{ $moment(data.release_date).format('YYYY') }})
+                    </small>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-12">{treaser}</div>
+
+                <div v-if="data.tagline" class="row mt-1">
+                  <div class="col-12 d-flex">
+                    {{ data.tagline }}
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <i>{{ data.vote_average * 10 }}</i> -
-                    {{ $moment(data.release_date).format('DD/MM/YYYY') }} *
-                    {{ data.genres }}
+                    <div class="points-content">
+                      <div
+                        class="per-bg"
+                        :style="{ height: data.vote_average * 10 + '%' }"
+                      ></div>
+                      <i class="points-text">{{ data.vote_average * 10 }}</i>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
+                <div v-if="data.release_date" class="row">
+                  <div class="col-12">
+                    <div
+                      class="badge badge-info"
+                      style="font-size: 15px !important; font-weight: 400"
+                    >
+                      <i class="bi bi-calendar-date"></i>
+                      {{ $moment(data.release_date).format('DD/MM/YYYY') }}
+                    </div>
+                  </div>
+                </div>
+                <div v-if="data.genres" class="row mt-1">
+                  <div class="col-12">
+                    <span
+                      v-for="item in data.genres"
+                      :key="item.id"
+                      class="badge badge-secondary mr-1"
+                    >
+                      {{ item.name }}
+                    </span>
+                  </div>
+                </div>
+
+                <div v-if="data.overview" class="row mt-3">
                   <div class="col-12">{{ data.overview }}</div>
                 </div>
-                <div class="row">
+                <div v-if="data.keywords" class="row mt-1">
                   <div class="col-12">{{ data.keywords }}</div>
+                </div>
+                <div v-if="video" class="row mt-3">
+                  <div class="col-12">
+                    <a class="btn btn-primary" :href="video.link">
+                      <i class="bi bi-film"></i> Teaser</a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -63,65 +95,105 @@
         </div>
       </section>
     </div>
-    <section class="mt-3 container">
+    <section v-if="cast.length > 0" class="mt-3 container">
       <div class="row"><div class="col-12 h3">Cast</div></div>
       <div class="row">
-        <div class="col-12">{cast} slider olacak</div>
+        <div class="col-12">
+          <div class="content">
+            <div class="slide-area">
+              <div v-for="item in cast" :key="item.id" class="item m-2">
+                <img
+                  :src="
+                    item.profile_path !== null
+                      ? imgPath + item.profile_path
+                      : require(`@/assets/img/null.jpeg`)
+                  "
+                  alt=""
+                  class="w-100"
+                />
+                <small class="mt-3">
+                  {{ item.name }} <br />
+                  <small> {{ item.character }} </small>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-    <section class="mt-3 container">
+    <h4 v-else class="text-danger text-center mt-5">No Any Cast Data</h4>
+    <section v-if="pLength > 0" class="mt-3 container">
       <div class="row">
         <div class="col-12 h3">Production</div>
       </div>
       <div class="row">
-        <div class="col-12">{production_companies} slider olacak</div>
+        <div class="col-12">
+          <div class="content">
+            <div class="slide-area">
+              <div
+                v-for="item in data.production_companies"
+                :key="item.id"
+                class="item m-2"
+              >
+                <img
+                  :src="
+                    item.logo_path !== null
+                      ? imgPath + item.logo_path
+                      : require(`@/assets/img/null.jpeg`)
+                  "
+                  alt=""
+                  class="w-100"
+                />
+                <small>
+                  {{ item.name }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+    <h4 v-else class="text-danger text-center mt-5">No Any Production Data</h4>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'MovieDetail',
   layout: 'default',
   data() {
-    return { data: {} }
+    return { imgPath: process.env.imgPath }
+  },
+  computed: {
+    pLength() {
+      return this.data.production_companies
+        ? this.data.production_companies.length
+        : 0
+    },
+    ...mapState({
+      data: (state) => state.movie.detail,
+      cast: (state) => state.movie.cast,
+      video: (state) => state.movie.video,
+      bgPosters: (state) => state.movie.bgPosters,
+    }),
   },
   async beforeMount() {
     const { id } = this.$route.params
-    console.log('📌 - beforeMount - id', id)
-    const { data } = await this.$axios.get(
-      `movie/${id}?api_key=0ae52396441ca76a92a3441da1d1f220&language=tr`
-    )
-    this.data = data
+    await this.getDetail(id)
+    await this.getCast(id)
+    await this.getVideo(id)
+    await this.getImages(id)
+  },
+  methods: {
+    ...mapActions({
+      getDetail: 'movie/getDetail',
+      getCast: 'movie/getCast',
+      getVideo: 'movie/getVideo',
+      getImages: 'movie/getImages',
+    }),
   },
 }
 </script>
 
-<style>
-.a {
-  position: absolute;
-  top: 0;
-  z-index: 99999;
-  display: flex;
-  justify-content: center;
-  left: 13%;
-}
-.carousel-inner {
-  height: 600px !important;
-}
-.bg-shadow {
-  background: linear-gradient(
-    132deg,
-    rgba(2, 0, 36, 0.7) 0%,
-    rgba(0, 200, 255, 0.3) 100%
-  );
-
-  z-index: 99;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-</style>
+<style lang="scss"></style>

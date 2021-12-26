@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 footer {
@@ -10,4 +11,11 @@ footer {
 header {
   z-index: 99999999;
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+}
+a {
+  color: #454545;
+  &:hover {
+    color: #353535;
+    text-decoration: none;
+  }
 }
