@@ -12,3 +12,8 @@
   border-radius: 5px;
   transition-duration: 0.25s;
 }
+.logo {
+  .nuxt-link-exact-active {
+    background-color: #343a40 !important;
+  }
+}

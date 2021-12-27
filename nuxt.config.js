@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'appcent-case',
+    title: 'Yummovie | Best in the web',
     htmlAttrs: {
       lang: 'en',
     },

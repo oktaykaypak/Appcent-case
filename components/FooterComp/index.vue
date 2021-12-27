@@ -1,5 +1,10 @@
 <template>
-  <footer class="mt-5 py-5 bg-dark text-white text-center">aass</footer>
+  <footer class="mt-5 py-5 bg-dark text-white text-center">
+    <div class="row"><div class="col-12">YUMMOVIE</div></div>
+    <div class="row">
+      <div class="col-12"><small> All Right Reserved © 2021</small></div>
+    </div>
+  </footer>
 </template>
 
 <script>

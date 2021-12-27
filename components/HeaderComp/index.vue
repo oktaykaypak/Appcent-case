@@ -2,12 +2,14 @@
   <header class="shadow bg-dark text-white">
     <div class="container">
       <div class="row" style="max-height: 100px">
-        <div class="col-sm-6">
+        <div class="col-6 logo">
           <!-- Logo -->
-          <img height="100" src="@/assets/img/logo.png" alt="" />
+          <nuxt-link class="" to="/">
+            <img height="100" src="@/assets/img/logo.png" alt="" />
+          </nuxt-link>
         </div>
         <div
-          class="col-sm-6 justify-content-end menu text-white d-flex align-items-center"
+          class="col-6 justify-content-end menu text-white d-flex align-items-center"
         >
           <!-- menu -->
           <nuxt-link class="menu-item" to="/">Home</nuxt-link>

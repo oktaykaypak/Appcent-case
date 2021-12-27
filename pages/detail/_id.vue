@@ -1,11 +1,7 @@
 <template>
   <div class="">
     <div class="position-relative">
-      <b-carousel
-        id="carousel-fade"
-        style="text-shadow: 0px 0px 2px #000; height: 600px"
-        fade
-      >
+      <b-carousel id="carousel-fade" style="text-shadow: 0px 0px 2px #000" class="shadow" fade>
         <b-carousel-slide
           v-for="item in bgPosters"
           :key="item.file_path"
@@ -17,7 +13,7 @@
       <section class="container py-5 a">
         <div class="row">
           <div class="col-12">
-            <div class="row">
+            <div class="row m-space">
               <div class="col-sm-4">
                 <!-- Afis -->
                 <img
@@ -49,7 +45,7 @@
                         class="per-bg"
                         :style="{ height: data.vote_average * 10 + '%' }"
                       ></div>
-                      <i class="points-text">{{ data.vote_average * 10 }}</i>
+                      <i class="points-text">%{{ data.vote_average * 10 }}</i>
                     </div>
                   </div>
                 </div>
@@ -162,6 +158,11 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'MovieDetail',
   layout: 'default',
+  head() {
+    return {
+      title: this.data.title,
+    }
+  },
   data() {
     return { imgPath: process.env.imgPath }
   },

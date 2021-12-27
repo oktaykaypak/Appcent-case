@@ -16,7 +16,7 @@
     }
   }
 }
-.slider-vote{
+.slider-vote {
   position: absolute;
   top: 0;
   left: 10px;
@@ -35,4 +35,9 @@
   font-weight: bold;
   font-size: 12px;
   background-color: #fafafa;
+}
+@media screen and (max-width: 400px) {
+  .slider-vote {
+    left: 40px;
+  }
 }
