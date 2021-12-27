@@ -1,10 +1,43 @@
-# appcent-case
+# Appcent Case - Yummovie
+
+Projemiz bir Nuxt.JS projesidir. Themoviedb'den veri çekerek çalışır. Projemiz bootstrap css ile tasarlanmıştır. Özel alanlar için scss ile yeniden dizayn edilmiştir.
+
+Simgeler scss ile bootstrap ile sisteme eklenir.
+
+Fontlar Google Fonts üzerinden scss ile sisteme eklenir. Varsayılan yazı tipi Poppins tercih edilir.
+
+Tüm istekler store→movie.js dosyasında tutulur ve bu alandan sayfalara aktarılır.
+
+```jsx
+async getPopular({ commit }, id) {
+  const { data } = await this.$axios.get(`movie/popular`)
+  commit('setPMovies', data.results)
+},
+```
+
+Sistem Axios ile baglanmistir. Bağlantı themoviedb'den alınan API ile sağlanır. Token bilgileri nuxt-config içinde mevcuttur.
+
+```json
+env: {
+    token:
+      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYWU1MjM5NjQ0MWNhNzZhOTJhMzQ0MWRhMWQxZjIyMCIsInN1YiI6IjYxYzQyYTYyZWNhZWY1MDA4ZWFmZTFhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MZsBC8SxrKXRJIbn9Rt4acJcqjaSLx3jn-fScgU2y4g',
+    imgPath: 'https://www.themoviedb.org/t/p/w300_and_h450_bestv2',
+  },
+```
+
+Proje web ve mobil tabanlı olarak tasarlanmıştır. Canlı demoda görüntülenebilir.
+
+---
+
+## Live Demo
+
+[https://appcent-case-oktaykaypak.vercel.app/](https://appcent-case-oktaykaypak.vercel.app/)
 
 ## Build Setup
 
 ```bash
 # install dependencies
-$ yarn install
+$ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn dev
@@ -17,52 +50,74 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+---
 
-## Special Directories
+## Pages
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+### Home Page
 
-### `assets`
+Projenin ana sayfasıdır. Bu sayfada iki farklı API üzerinden veri alınmaktadır. Bu API’ler sırasıyla popüler ve trend olan filmleri getiriyor.
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+![Untitled](Appcent%20Case%20-%20Yummovie%20d5a8e04fc7b048c3b892301611b2e847/Untitled.png)
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+Sayfamızda tasarım bileşenleri olarak Bootstrap jumbotron ve swiper.js kullanılmaktadır. Jumbotron alanında projemizin adı ve sloganı yer almaktadır.
 
-### `components`
+![Untitled](Appcent%20Case%20-%20Yummovie%20d5a8e04fc7b048c3b892301611b2e847/Untitled%201.png)
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+Swiper.js, sayfamızdaki popüler ve trend olan filmleri listelemek için kullanılır.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+![Untitled](Appcent%20Case%20-%20Yummovie%20d5a8e04fc7b048c3b892301611b2e847/Untitled%202.png)
 
-### `layouts`
+---
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+### Detail
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+Projemizin detay sayfasıdır. Filmlerin id bilgilerine göre Detail, Images, Cast, Video API'lerine istek gönderir. Gelen içerikler vuex yapısı üzerinden sayfaya aktarılır.
 
-### `pages`
+Sayfamız vue router ile entegre çalışmaktadır. URL'deki parametre ile filmlerin id bilgileri alınır.
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+Sayfamızda bootstrap carousel bileşeni ile arka planda kullanılmak üzere hazırlanmış slayt alanı bulunmaktadır.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+![Untitled](Appcent%20Case%20-%20Yummovie%20d5a8e04fc7b048c3b892301611b2e847/Untitled%203.png)
 
-### `plugins`
+Döküm ve Üretim alanları için hiçbir bileşen kullanılmaz. HTML/CSS ile oluşturuldu.
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+![Untitled](Appcent%20Case%20-%20Yummovie%20d5a8e04fc7b048c3b892301611b2e847/Untitled%204.png)
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+---
 
-### `static`
+## Store
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+### Movie.js
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+Bu dosya API isteklerini içerir. Sayfalarda çağrılan fonksiyonlar burada saklanır.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+Aynı şekilde gelen veriler düzenlenerek buradan sayfalara gönderilir.
 
-### `store`
+---
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+## Components
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+### FooterComp
+
+Projemizin footer alanı içerir.
+
+### Header
+
+Projemizin header alanı içerir.
+
+---
+
+## Layouts
+
+### Default.vue
+
+Projemizin iskeletini oluşturuyor. Header ve Footer bileşenleri bu alanda bulunur.
+
+Ayrıca projemizde kullandığımız token sayfa açıldığında header alanına eklenir.
+
+---
+
+## Assets
+
+Projemizde kullandığımız tüm görseller ve tasarım şablonları bu klasördedir.
