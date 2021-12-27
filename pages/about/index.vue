@@ -1,4 +1,8 @@
-<template><div>abaout</div></template>
+<template>
+  <div>
+    <section class="container mt-5 text-center">About Page</section>
+  </div>
+</template>
 
 <script>
 export default {

@@ -13,6 +13,29 @@
   }
   &-text {
     z-index: 999;
+    color: #fff;
+    font-weight: 400;
+    line-height: normal;
+  }
+  &-bar {
+    &-content {
+      @extend %box-shadow !optional;
+      position: relative;
+      width: 20px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #45454555;
+      border-radius: 5px;
+      margin: 1rem 0;
+    }
+    &-text {
+      z-index: 999;
+      color: #fff;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
 }
 .per-bg {
@@ -22,6 +45,14 @@
   width: 100%;
   background: #00cc0099;
   border-radius: 10px;
+  &-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #00cc0099;
+    border-radius: 5px;
+  }
 }
 .content {
   width: 100%;
@@ -40,7 +71,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   @extend %box-shadow;
-  &-text{
+  &-text {
     margin-top: 5px;
   }
 }

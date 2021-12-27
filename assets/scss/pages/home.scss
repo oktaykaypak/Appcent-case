@@ -16,8 +16,14 @@
     }
   }
 }
+.slider-vote{
+  position: absolute;
+  top: 0;
+  left: 10px;
+  z-index: 99999;
+}
 .swiper {
-  height: 400px;
+  height: 450px;
   width: 100%;
 }
 
